@@ -181,142 +181,156 @@
 </script>
 
 <div class="cookie-dashboard">
-  <ThemeToggle />
-  <h2>Cookie Management Studio</h2>
+  <!-- <div>
+    <ThemeToggle />
+    <h2>Cookie Management Studio</h2>
 
-  <div class="header">
-    <div class="actions">
-      <button onclick={fetchCookies} disabled={loading} class="">
-        {loading ? "Loading..." : "Refresh Cookies"}
-      </button>
-      {#if selectedCookies.size > 0}
-        <button onclick={deleteSelectedCookies} class="btn-danger">
-          Delete Selected ({selectedCookies.size})
+    <div class="header">
+      <div class="actions">
+        <button onclick={fetchCookies} disabled={loading} class="">
+          {loading ? "Loading..." : "Refresh Cookies"}
         </button>
-      {/if}
+        {#if selectedCookies.size > 0}
+          <button onclick={deleteSelectedCookies} class="btn-danger">
+            Delete Selected ({selectedCookies.size})
+          </button>
+        {/if}
+      </div>
     </div>
-  </div>
 
-  <div class="filters">
-    <input
-      bind:value={searchTerm}
-      placeholder="Search cookies..."
-      class="search-input"
-    />
+    <div class="filters">
+      <input
+        bind:value={searchTerm}
+        placeholder="Search cookies..."
+        class="search-input"
+      />
 
-    <select bind:value={selectedDomain} class="domain-filter">
-      {#each domains as domain}
-        <option value={domain}>
-          {domain === "all" ? "All Domains" : domain}
-        </option>
-      {/each}
-    </select>
+      <select bind:value={selectedDomain} class="domain-filter">
+        {#each domains as domain}
+          <option value={domain}>
+            {domain === "all" ? "All Domains" : domain}
+          </option>
+        {/each}
+      </select>
 
-    <label class="checkbox-label">
-      <input type="checkbox" bind:checked={showExpiredOnly} />
-      Show expired only
-    </label>
+      <label class="checkbox-label">
+        <input type="checkbox" bind:checked={showExpiredOnly} />
+        Show expired only
+      </label>
 
-    <div class="stats">
-      Total: {cookies.length} | Filtered: {filteredCookies.length}
+      <div class="stats">
+        Total: {cookies.length} | Filtered: {filteredCookies.length}
+      </div>
     </div>
-  </div>
 
-  <div class="table-container overflow-auto no-scrollbar h-[80vh]">
-    <div class="overflow-x-auto">
-      <table class="table table-zebra">
-        <!-- head -->
-        <thead>
-          <tr>
-            <th>
-              <input
-                type="checkbox"
-                checked={selectedCookies.size === filteredCookies.length &&
-                  filteredCookies.length > 0}
-                onchange={toggleAllSelection}
-              />
-            </th>
-            <th onclick={() => setSortField("name")} class="sortable">
-              Name {sortField === "name"
-                ? sortDirection === "asc"
-                  ? "↑"
-                  : "↓"
-                : ""}
-            </th>
-            <th onclick={() => setSortField("value")} class="sortable">
-              Value {sortField === "value"
-                ? sortDirection === "asc"
-                  ? "↑"
-                  : "↓"
-                : ""}
-            </th>
-            <!-- <th onclick={() => setSortField('domain')} class="sortable">
-						Domain {sortField === 'domain' ? (sortDirection === 'asc' ? '↑' : '↓') : ''}
-					</th>
-					<th onclick={() => setSortField('path')} class="sortable">
-						Path {sortField === 'path' ? (sortDirection === 'asc' ? '↑' : '↓') : ''}
-					</th>
-					<th>Expires</th>
-					<th>Flags</th>
-					<th>Actions</th> -->
-          </tr>
-        </thead>
-        <tbody>
-          {#each filteredCookies as cookie (cookie.domain + cookie.name)}
-            <tr class="cookie-row">
-              <td>
+    <div class="table-container overflow-auto no-scrollbar h-[80vh]">
+      <div class="overflow-x-auto">
+        <table class="table table-zebra">
+          <thead>
+            <tr>
+              <th>
                 <input
                   type="checkbox"
-                  checked={selectedCookies.has(
-                    `${cookie.domain}-${cookie.name}`
-                  )}
-                  onchange={() => toggleCookieSelection(cookie)}
+                  checked={selectedCookies.size === filteredCookies.length &&
+                    filteredCookies.length > 0}
+                  onchange={toggleAllSelection}
                 />
-              </td>
-              <!-- <td class="cookie-name" title={cookie.name}>
-							{cookie.name}
-						</td> -->
-              <td class="cookie-value" title={cookie.value}>
-                {cookie.value.length > 50
-                  ? cookie.value.substring(0, 50) + "..."
-                  : cookie.value}
-              </td>
-              <td class="cookie-domain">
-                {cookie.domain}
-              </td>
-              <!-- <td class="cookie-path">
-							{cookie.path}
-						</td>
-						<td class="cookie-expiry">
-							{formatExpiry(cookie.expirationDate)}
-						</td> -->
-              <td class="cookie-flags">
-                <div class="flags">
-                  {#if cookie.secure}<span class="flag secure">S</span>{/if}
-                  {#if cookie.httpOnly}<span class="flag httponly">H</span>{/if}
-                  {#if cookie.sameSite !== "no_restriction"}<span
-                      class="flag samesite"
-                      >{cookie.sameSite[0].toUpperCase()}</span
-                    >{/if}
-                </div>
-              </td>
-              <!-- <td class="cookie-actions">
-							<button onclick={() => deleteCookie(cookie)} class="btn-delete" title="Delete cookie">
-								🗑️
-							</button>
-						</td> -->
+              </th>
+              <th onclick={() => setSortField("name")} class="sortable">
+                Name {sortField === "name"
+                  ? sortDirection === "asc"
+                    ? "↑"
+                    : "↓"
+                  : ""}
+              </th>
+              <th onclick={() => setSortField("value")} class="sortable">
+                Value {sortField === "value"
+                  ? sortDirection === "asc"
+                    ? "↑"
+                    : "↓"
+                  : ""}
+              </th>
+              <th onclick={() => setSortField("domain")} class="sortable">
+                Domain {sortField === "domain"
+                  ? sortDirection === "asc"
+                    ? "↑"
+                    : "↓"
+                  : ""}
+              </th>
+              <th onclick={() => setSortField("path")} class="sortable">
+                Path {sortField === "path"
+                  ? sortDirection === "asc"
+                    ? "↑"
+                    : "↓"
+                  : ""}
+              </th>
+              <th>Expires</th>
+              <th>Flags</th>
+              <th>Actions</th>
             </tr>
-          {:else}
-            <tr>
-              <td colspan="8" class="no-data">
-                {loading ? "Loading cookies..." : "No cookies found"}
-              </td>
-            </tr>
-          {/each}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {#each filteredCookies as cookie (cookie.domain + cookie.name)}
+              <tr class="cookie-row">
+                <td>
+                  <input
+                    type="checkbox"
+                    checked={selectedCookies.has(
+                      `${cookie.domain}-${cookie.name}`
+                    )}
+                    onchange={() => toggleCookieSelection(cookie)}
+                  />
+                </td>
+                <td class="cookie-name" title={cookie.name}>
+                  {cookie.name}
+                </td>
+                <td class="cookie-value" title={cookie.value}>
+                  {cookie.value.length > 50
+                    ? cookie.value.substring(0, 50) + "..."
+                    : cookie.value}
+                </td>
+                <td class="cookie-domain">
+                  {cookie.domain}
+                </td>
+                <td class="cookie-path">
+                  {cookie.path}
+                </td>
+                <td class="cookie-expiry">
+                  {formatExpiry(cookie.expirationDate)}
+                </td>
+                <td class="cookie-flags">
+                  <div class="flags">
+                    {#if cookie.secure}<span class="flag secure">S</span>{/if}
+                    {#if cookie.httpOnly}<span class="flag httponly">H</span
+                      >{/if}
+                    {#if cookie.sameSite !== "no_restriction"}<span
+                        class="flag samesite"
+                        >{cookie.sameSite[0].toUpperCase()}</span
+                      >{/if}
+                  </div>
+                </td>
+                <td class="cookie-actions">
+                  <button
+                    onclick={() => deleteCookie(cookie)}
+                    class="btn-delete"
+                    title="Delete cookie"
+                  >
+                    🗑️
+                  </button>
+                </td>
+              </tr>
+            {:else}
+              <tr>
+                <td colspan="8" class="no-data">
+                  {loading ? "Loading cookies..." : "No cookies found"}
+                </td>
+              </tr>
+            {/each}
+          </tbody>
+        </table>
+      </div>
     </div>
-  </div>
+  </div> -->
 
-  <!-- <StorageStudio /> -->
+  <StorageStudio />
 </div>

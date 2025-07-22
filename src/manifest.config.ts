@@ -27,12 +27,13 @@ export default defineManifest(async () => ({
     default_path: "index.html",
   },
   host_permissions: ["<all_urls>"],
-  // content_scripts: [
-  //     {
-  //         matches: ["https://*/*"],
-  //         js: ["src/content/index.ts"],
-  //     },
-  // ],
+  content_scripts: [
+    {
+      // matches: ["https://*/*", "http://*/*"],
+      matches: ["<all_urls>"],
+      js: ["src/content/index.ts"],
+    },
+  ],
   background: {
     service_worker: "src/background/index.ts",
   },
@@ -52,5 +53,6 @@ export default defineManifest(async () => ({
     "activeTab",
     "bookmarks",
     "cookies",
+    "scripting",
   ] as chrome.runtime.ManifestPermissions[],
 }));
