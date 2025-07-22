@@ -1,0 +1,34 @@
+{
+  "name": "dev",
+  "description": "A Chrome extension with side panel built using Svelte",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "build:chrome": "vite build && node scripts/manifest-chrome.js",
+    "build:firefox": "vite build && node scripts/manifest-firefox.js && web-ext build -s dist -a web-ext-artifacts",
+    "build:edge": "vite build && node scripts/manifest-edge.js"
+  },
+  "dependencies": {
+    "@crxjs/vite-plugin": "^2.0.3",
+    "vite-tsconfig-paths": "^5.1.4",
+    "webextension-polyfill": "^0.10.0"
+  },
+  "devDependencies": {
+    "@sveltejs/vite-plugin-svelte": "^4.0.0-next.6",
+    "@tsconfig/svelte": "^5.0.2",
+    "@types/chrome": "^0.1.1",
+    "autoprefixer": "^10.4.18",
+    "daisyui": "^4.7.3",
+    "postcss": "^8.4.35",
+    "svelte": "^5.0.0-next.68",
+    "svelte-check": "^3.6.4",
+    "tailwindcss": "^3.4.1",
+    "tslib": "^2.7.0",
+    "typescript": "^5.3.3",
+    "vite": "^5.1.4",
+    "web-ext": "^7.8.0"
+  }
+}
