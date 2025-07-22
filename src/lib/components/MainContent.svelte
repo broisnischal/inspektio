@@ -211,7 +211,7 @@
 		</div>
 	</div>
 
-	<div class="table-container">
+	<div class="table-container overflow-auto no-scrollbar h-100">
 		<table class="cookies-table">
 			<thead>
 				<tr>
@@ -228,7 +228,7 @@
 					<th onclick={() => setSortField('value')} class="sortable">
 						Value {sortField === 'value' ? (sortDirection === 'asc' ? '↑' : '↓') : ''}
 					</th>
-					<th onclick={() => setSortField('domain')} class="sortable">
+					<!-- <th onclick={() => setSortField('domain')} class="sortable">
 						Domain {sortField === 'domain' ? (sortDirection === 'asc' ? '↑' : '↓') : ''}
 					</th>
 					<th onclick={() => setSortField('path')} class="sortable">
@@ -236,7 +236,7 @@
 					</th>
 					<th>Expires</th>
 					<th>Flags</th>
-					<th>Actions</th>
+					<th>Actions</th> -->
 				</tr>
 			</thead>
 			<tbody>

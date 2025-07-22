@@ -9,6 +9,7 @@
     "allowJs": true,
     "checkJs": true,
     "isolatedModules": true,
+    "strict": true,
     "moduleDetection": "force",
     "types": ["chrome"],
     "baseUrl": ".",

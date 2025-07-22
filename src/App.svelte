@@ -14,9 +14,9 @@
 <div class="h-screen" data-theme={$theme}>
   <!-- <Sidebar /> -->
     <main class="flex-1 p-4">
-      <div class="flex justify-end">
+      <!-- <div class="flex justify-end">
         <ThemeToggle />
-      </div>
+      </div> -->
       <MainContent />
     </main> 
 </div>
